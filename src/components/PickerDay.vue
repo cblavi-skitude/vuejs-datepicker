@@ -1,5 +1,5 @@
 <template>
-  <div class="relative" :class="[calendarClass, 'vdp-datepicker__calendar']" v-show="showDayView" :style="calendarStyle" @mousedown.prevent>
+  <div :class="[calendarClass, 'vdp-datepicker__calendar']" v-show="showDayView" :style="calendarStyle" @mousedown.prevent>
     <slot name="beforeCalendarHeader"></slot>
     <header>
       <span
@@ -12,7 +12,7 @@
         class="next"
         :class="{'disabled': isRightNavDisabled}">&gt;</span>
     </header>
-    <div :class="isRtl ? 'flex-rtl' : ''">
+    <div class="relative" :class="isRtl ? 'flex-rtl' : ''">
       <span class="cell day-header" v-for="d in daysOfWeek" :key="d.timestamp">{{ d }}</span>
       <template v-if="blankDays > 0">
         <span class="cell day blank" v-for="d in blankDays" :key="d.timestamp"></span>
