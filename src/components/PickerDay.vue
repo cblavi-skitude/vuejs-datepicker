@@ -18,8 +18,8 @@
         <span class="cell day blank" v-for="d in blankDays" :key="d.timestamp"></span>
       </template><!--
       -->
-      <div class="inline-block" v-for="day in days" :key="day.timestamp" @click="selectDate(day)" :class="dayClasses(day)">
-        <span class="cell day"
+      <div class="inline-block cell day" v-for="day in days" :key="day.timestamp" @click="selectDate(day)" :class="dayClasses(day)">
+        <span
             v-html="dayCellContent(day)">
         </span>
       </div>
