@@ -12,17 +12,17 @@
         class="next"
         :class="{'disabled': isRightNavDisabled}">&gt;</span>
     </header>
-    <div :class="isRtl ? 'flex-rtl' : ''">
+    <div id="calendar-days" :class="isRtl ? 'flex-rtl' : ''">
       <span class="cell day-header" v-for="d in daysOfWeek" :key="d.timestamp">{{ d }}</span>
       <template v-if="blankDays > 0">
         <span class="cell day blank" v-for="d in blankDays" :key="d.timestamp"></span>
       </template><!--
-      -->
-      <div class="inline-block cell day" v-for="day in days" :key="day.timestamp" @click="selectDate(day)" :class="dayClasses(day)">
-        <span
-            v-html="dayCellContent(day)">
-        </span>
-      </div>
+      --><span class="cell day"
+          v-for="day in days"
+          :key="day.timestamp"
+          :class="dayClasses(day)"
+          v-html="dayCellContent(day)"
+          @click="selectDate(day)"></span>
     </div>
     <slot name="afterCalendar"></slot>
   </div>
