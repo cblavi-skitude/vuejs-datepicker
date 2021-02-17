@@ -42,6 +42,7 @@ export default {
       default: day => day.date
     },
     disabledDates: Object,
+    disabledCapacityDates: Object,
     highlighted: Object,
     calendarClass: [String, Object, Array],
     calendarStyle: Object,
@@ -101,6 +102,7 @@ export default {
           timestamp: dObj.getTime(),
           isSelected: this.isSelectedDate(dObj),
           isDisabled: this.isDisabledDate(dObj),
+          isDisabledFull: this.isDisabledFull(dObj),
           isHighlighted: this.isHighlightedDate(dObj),
           isHighlightStart: this.isHighlightStart(dObj),
           isHighlightEnd: this.isHighlightEnd(dObj),
@@ -157,7 +159,7 @@ export default {
   },
   methods: {
     selectDate (date) {
-      if (date.isDisabled) {
+      if (date.isDisabled || date.isDisabledFull) {
         this.$emit('selectedDisabled', date)
         return false
       }
@@ -279,13 +281,36 @@ export default {
       }
       return disabledDates
     },
+
+    /**
+     * Whether a day is disabled by it's capacity
+     * @param {Date}
+     * @return {Boolean}
+     */
+    isDisabledFull (date) {
+      let disabledDates = false
+
+      if (typeof this.disabledCapacityDates === 'undefined') {
+        return false
+      }
+
+      if (typeof this.disabledCapacityDates.dates !== 'undefined') {
+        this.disabledCapacityDates.dates.forEach((d) => {
+          if (this.utils.compareDates(date, d)) {
+            disabledDates = true
+            return true
+          }
+        })
+      }
+      return disabledDates
+    },
     /**
      * Whether a day is highlighted (only if it is not disabled already except when highlighted.includeDisabled is true)
      * @param {Date}
      * @return {Boolean}
      */
     isHighlightedDate (date) {
-      if (!(this.highlighted && this.highlighted.includeDisabled) && this.isDisabledDate(date)) {
+      if (!(this.highlighted && this.highlighted.includeDisabled) && this.isDisabledDate(date) && this.isDisabledFull(date)) {
         return false
       }
 
@@ -326,6 +351,7 @@ export default {
       return {
         'selected': day.isSelected,
         'disabled': day.isDisabled,
+        'disabledFull': day.isDisabledFull,
         'highlighted': day.isHighlighted,
         'today': day.isToday,
         'weekend': day.isWeekend,
