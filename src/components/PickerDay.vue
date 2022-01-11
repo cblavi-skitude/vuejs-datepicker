@@ -350,7 +350,10 @@ export default {
       return highlighted
     },
     dayClasses (day) {
-      const customClass = day.customClass
+      const customClass = day.customClass.reduce((p, c) => {
+        return p
+      }, {})
+
       return {
         'selected': day.isSelected,
         'disabled': day.isDisabled,
@@ -362,7 +365,7 @@ export default {
         'sun': day.isSunday,
         'highlight-start': day.isHighlightStart,
         'highlight-end': day.isHighlightEnd,
-        [customClass]: true
+        ...customClass
       }
     },
     /**
@@ -393,7 +396,11 @@ export default {
     },
 
     getCustomClass (date) {
-      return 'sample-class'
+      const dateStr = this.utils.getFullYear(date) + '-' +
+        this.utils.getMonth(date) + '-' +
+        this.utils.getDate(date)
+
+      return this.daysWithcustomClass[dateStr].split(' ')
     },
 
     /**

@@ -1074,8 +1074,10 @@ var script$1 = {
       return highlighted;
     },
     dayClasses: function dayClasses(day) {
-      var customClass = day.customClass;
-      return _defineProperty({
+      var customClass = day.customClass.reduce(function (p, c) {
+        return p;
+      }, {});
+      return _objectSpread({
         'selected': day.isSelected,
         'disabled': day.isDisabled,
         'disabledFull': day.isDisabledFull,
@@ -1086,7 +1088,7 @@ var script$1 = {
         'sun': day.isSunday,
         'highlight-start': day.isHighlightStart,
         'highlight-end': day.isHighlightEnd
-      }, customClass, true);
+      }, customClass);
     },
 
     /**
@@ -1109,7 +1111,8 @@ var script$1 = {
       return this.isHighlightedDate(date) && this.highlighted.to instanceof Date && this.utils.getFullYear(this.highlighted.to) === this.utils.getFullYear(date) && this.utils.getMonth(this.highlighted.to) === this.utils.getMonth(date) && this.utils.getDate(this.highlighted.to) === this.utils.getDate(date);
     },
     getCustomClass: function getCustomClass(date) {
-      return 'sample-class';
+      var dateStr = this.utils.getFullYear(date) + '-' + this.utils.getMonth(date) + '-' + this.utils.getDate(date);
+      return this.daysWithcustomClass[dateStr].split(' ');
     },
 
     /**
