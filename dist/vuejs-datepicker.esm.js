@@ -1110,6 +1110,11 @@ var script$1 = {
     },
     getCustomClass: function getCustomClass(date) {
       var dateStr = this.utils.getFullYear(date) + '-' + this.utils.getMonth(date) + '-' + this.utils.getDate(date);
+
+      if (this.daysWithcustomClass[dateStr] === undefined) {
+        return [];
+      }
+
       return this.daysWithcustomClass[dateStr].split(' ');
     },
 

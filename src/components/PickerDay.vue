@@ -400,6 +400,9 @@ export default {
         this.utils.getMonth(date) + '-' +
         this.utils.getDate(date)
 
+      if (this.daysWithcustomClass[dateStr] === undefined) {
+        return []
+      }
       return this.daysWithcustomClass[dateStr].split(' ')
     },
 
