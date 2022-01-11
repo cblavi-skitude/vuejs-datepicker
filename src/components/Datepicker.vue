@@ -40,6 +40,7 @@
       :allowedToShowView="allowedToShowView"
       :disabledDates="disabledDates"
       :disabledCapacityDates="disabledCapacityDates"
+      :daysWithcustomClass="daysWithcustomClass"
       :highlighted="highlighted"
       :calendarClass="calendarClass"
       :calendarStyle="calendarStyle"
@@ -131,6 +132,7 @@ export default {
     fullMonthName: Boolean,
     disabledDates: Object,
     disabledCapacityDates: Object,
+    daysWithcustomClass: Array,
     highlighted: Object,
     placeholder: String,
     inline: Boolean,

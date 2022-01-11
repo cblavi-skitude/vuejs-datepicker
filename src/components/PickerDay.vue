@@ -43,6 +43,7 @@ export default {
     },
     disabledDates: Object,
     disabledCapacityDates: Object,
+    daysWithcustomClass: Array,
     highlighted: Object,
     calendarClass: [String, Object, Array],
     calendarStyle: Object,
@@ -109,7 +110,8 @@ export default {
           isToday: this.utils.compareDates(dObj, new Date()),
           isWeekend: this.utils.getDay(dObj) === 0 || this.utils.getDay(dObj) === 6,
           isSaturday: this.utils.getDay(dObj) === 6,
-          isSunday: this.utils.getDay(dObj) === 0
+          isSunday: this.utils.getDay(dObj) === 0,
+          customClass: this.getCustomClass(dObj)
         })
         this.utils.setDate(dObj, this.utils.getDate(dObj) + 1)
       }
@@ -348,6 +350,7 @@ export default {
       return highlighted
     },
     dayClasses (day) {
+      const customClass = day.customClass
       return {
         'selected': day.isSelected,
         'disabled': day.isDisabled,
@@ -358,7 +361,8 @@ export default {
         'sat': day.isSaturday,
         'sun': day.isSunday,
         'highlight-start': day.isHighlightStart,
-        'highlight-end': day.isHighlightEnd
+        'highlight-end': day.isHighlightEnd,
+        [customClass]: true
       }
     },
     /**
@@ -387,6 +391,11 @@ export default {
         (this.utils.getMonth(this.highlighted.to) === this.utils.getMonth(date)) &&
         (this.utils.getDate(this.highlighted.to) === this.utils.getDate(date))
     },
+
+    getCustomClass (date) {
+      return 'sample-class'
+    },
+
     /**
      * Helper
      * @param  {mixed}  prop
