@@ -1073,6 +1073,7 @@ var script$1 = {
     },
     dayClasses: function dayClasses(day) {
       var customClass = day.customClass.reduce(function (p, c) {
+        p[c] = true;
         return p;
       }, {});
       return _objectSpread({
@@ -1109,7 +1110,11 @@ var script$1 = {
       return this.isHighlightedDate(date) && this.highlighted.to instanceof Date && this.utils.getFullYear(this.highlighted.to) === this.utils.getFullYear(date) && this.utils.getMonth(this.highlighted.to) === this.utils.getMonth(date) && this.utils.getDate(this.highlighted.to) === this.utils.getDate(date);
     },
     getCustomClass: function getCustomClass(date) {
-      var dateStr = this.utils.getFullYear(date) + '-' + this.utils.getMonth(date) + '-' + this.utils.getDate(date);
+      if (!this.daysWithcustomClass) {
+        return [];
+      }
+
+      var dateStr = this.utils.getFullYear(date) + '-' + (this.utils.getMonth(date) + 1 + '').padStart(2, '0') + '-' + (this.utils.getDate(date) + '').padStart(2, '0');
 
       if (this.daysWithcustomClass[dateStr] === undefined) {
         return [];

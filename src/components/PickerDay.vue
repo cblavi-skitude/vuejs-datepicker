@@ -351,6 +351,7 @@ export default {
     },
     dayClasses (day) {
       const customClass = day.customClass.reduce((p, c) => {
+        p[c] = true
         return p
       }, {})
 
@@ -396,9 +397,13 @@ export default {
     },
 
     getCustomClass (date) {
+      if (!this.daysWithcustomClass) {
+        return []
+      }
+
       const dateStr = this.utils.getFullYear(date) + '-' +
-        this.utils.getMonth(date) + '-' +
-        this.utils.getDate(date)
+        (this.utils.getMonth(date) + 1 + '').padStart(2, '0') + '-' +
+        (this.utils.getDate(date) + '').padStart(2, '0')
 
       if (this.daysWithcustomClass[dateStr] === undefined) {
         return []
