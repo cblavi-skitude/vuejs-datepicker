@@ -43,7 +43,7 @@ export default {
     },
     disabledDates: Object,
     disabledCapacityDates: Object,
-    daysWithcustomClass: Array,
+    daysWithcustomClass: Object,
     highlighted: Object,
     calendarClass: [String, Object, Array],
     calendarStyle: Object,

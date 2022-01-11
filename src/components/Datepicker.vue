@@ -132,7 +132,7 @@ export default {
     fullMonthName: Boolean,
     disabledDates: Object,
     disabledCapacityDates: Object,
-    daysWithcustomClass: Array,
+    daysWithcustomClass: Object,
     highlighted: Object,
     placeholder: String,
     inline: Boolean,
